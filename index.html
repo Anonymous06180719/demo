@@ -73,6 +73,12 @@
         border-radius: 8px;
     }
 
+    .abstract {
+    font-size: 18px;      /* 调整字体大小 */
+    line-height: 1.8;     /* 调整行高 */
+    color: #333;          /* 调整文字颜色 */
+}
+
     /* 标题样式强化 */
     h2 {
         margin-bottom: 30px;
@@ -108,7 +114,9 @@
 
 <p>
 
-<b>Abstract</b>
+
+<p class="abstract">
+<b>Abstract</b><br>
 Dialogue synthesis requires modeling speaker transitions while maintaining high linguistic accuracy. Existing text-to-speech frameworks face an inherent trade-off between computational efficiency and controllability, leading to either high implementation cost or limited flexibility in speaker transitions. In this work, building upon ZipVoice-Dialog, we propose a speaker modeling strategy that disentangles the speaker-turn condition from linguistic representations in the flow matching process. We also introduce a time-dependent decay mechanism that progressively reduces the strength of speaker-turn condition along the trajectory, allowing early steps to preserve speaker traits while later steps emphasize linguistic refinement. This dynamic modulation mitigates speaker content interference and stabilizes cross turn transitions without increasing model complexity. Experiments demonstrate improved controllability and competitive performance, along with strong generalization capability.
 
 </p>
