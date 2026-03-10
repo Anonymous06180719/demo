@@ -12,44 +12,71 @@
 <link href="css/bootstrap.min.css" rel="stylesheet">
 
 <style>
+    body {
+        font-family: 'Roboto', sans-serif;
+        background-color: #f8f9fa; /* 给背景一个浅灰色，突出白色的卡片 */
+        margin: 0;
+        padding: 0;
+    }
 
-body{
-font-family:Roboto;
-max-width:1800px;
-margin:auto;
-padding-left:40px;
-padding-right:40px;
-}
+    /* 核心容器：宽度设为 95% 并居中 */
+    .main-wrapper {
+        max-width: 95%; 
+        margin: 0 auto;
+        padding: 20px;
+    }
 
-audio{
-width:160px;
-}
+    /* 覆盖 Bootstrap 的 container-fluid 默认间距 */
+    .container-fluid {
+        width: 100%;
+        margin-right: auto;
+        margin-left: auto;
+    }
 
-.table td, .table th{
-text-align:center;
-vertical-align:middle;
-}
+    audio {
+        width: 160px;
+    }
 
-.dialogue-text-cell{
-text-align:left;
-max-width:700px;
-font-size:16px;
-line-height:1.6;
-}
+    .table td, .table th {
+        text-align: center;
+        vertical-align: middle;
+        white-space: nowrap; /* 防止音频按钮换行 */
+    }
 
-.speaker-line{
-display:block;
-text-indent:-2em;
-padding-left:2em;
-margin-bottom:6px;
-}
+    .dialogue-text-cell {
+        text-align: left;
+        min-width: 400px; /* 保证文字部分有足够的空间 */
+        font-size: 16px;
+        line-height: 1.6;
+        white-space: normal !important; /* 允许文字换行 */
+    }
 
-.speaker-label{
-display:inline-block;
-width:2em;
-font-weight:bold;
-}
+    .speaker-line {
+        display: block;
+        text-indent: -2.5em;
+        padding-left: 2.5em;
+        margin-bottom: 6px;
+    }
 
+    .speaker-label {
+        display: inline-block;
+        width: 2.5em;
+        font-weight: bold;
+        color: #555;
+    }
+
+    /* 让图片在容器内居中并自适应 */
+    .model-overview-imgs img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 8px;
+    }
+
+    /* 标题样式强化 */
+    h2 {
+        margin-bottom: 30px;
+        font-weight: 700;
+    }
 </style>
 
 </head>
