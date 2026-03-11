@@ -106,31 +106,23 @@ Disentangled Speaker Flow with Time-Decayed Conditioning for Dialogue Text-to-Sp
 <p>
 
 
-<p class="abstract">
-<b>Abstract</b><br>
-Dialogue synthesis requires modeling speaker transitions while maintaining high linguistic accuracy. 
-Existing text-to-speech frameworks face an inherent trade-off between computational efficiency and controllability, leading to either high implementation cost or limited flexibility in speaker transitions. 
-In this work, building upon ZipVoice-Dialog, we propose a speaker modeling strategy that disentangles the speaker-turn condition from linguistic representations in the flow matching process. 
-We also introduce a time-dependent decay mechanism that progressively reduces the strength of speaker-turn condition along the trajectory, allowing early steps to preserve speaker traits while later steps emphasize linguistic refinement. 
-This dynamic modulation mitigates speaker content interference and stabilizes cross turn transitions without increasing model complexity. 
-Experiments demonstrate improved controllability and competitive performance, along with strong generalization capability.
+<p class="abstract" style="font-size:16px; line-height:1.8; text-align:justify; max-width:900px; margin:0 auto; color:#333;">
+    <strong>Abstract</strong><br><br>
+    Dialogue synthesis requires modeling speaker transitions while maintaining high linguistic accuracy. 
+    Existing text-to-speech frameworks often face a trade-off between computational efficiency and controllability, 
+    resulting in either high implementation costs or limited flexibility in speaker transitions. 
 
+    In this work, building upon <em>ZipVoice-Dialog</em>, we propose a speaker modeling strategy that disentangles 
+    the speaker-turn condition from linguistic representations in the flow matching process. We also introduce 
+    a time-dependent decay mechanism that progressively reduces the influence of the speaker-turn condition along 
+    the trajectory, allowing early steps to preserve speaker traits while later steps emphasize linguistic refinement. 
+
+    This dynamic modulation mitigates speaker-content interference and stabilizes cross-turn transitions without 
+    increasing model complexity. Experiments demonstrate improved controllability, competitive performance, 
+    and strong generalization capability.
 </p>
 
 <br>
-
-<b>Contents</b>
-
-<ul>
-
-<li><a href="#model">Model Overview</a></li>
-<li><a href="#cn">Dialogue Generation (Chinese)</a></li>
-<li><a href="#en">Dialogue Generation (English)</a></li>
-<li><a href="#gen">Generation (English)</a></li>
-
-</ul>
-
-</div>
 
 
 
