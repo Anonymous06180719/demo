@@ -219,6 +219,35 @@
             font-weight: 400;
         }
 
+        /* 实验说明框的视觉样式 */
+        .experiment-note {
+            background-color: #f8fafc; /* 极简浅灰蓝背景 */
+            border: 1px solid #e2e8f0;
+            border-left: 5px solid #3b82f6; /* 亮蓝色侧栏，呼应主题 */
+            padding: 20px;
+            margin-bottom: 30px;
+            border-radius: 12px;
+            font-size: 1rem;
+            color: #334155;
+            line-height: 1.6;
+        }
+
+        .experiment-note b {
+            color: #0f172a; /* 重点文字加深 */
+        }
+
+        .note-tag {
+            display: inline-block;
+            background: #3b82f6;
+            color: white;
+            font-size: 0.75rem;
+            padding: 2px 10px;
+            border-radius: 4px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
         footer {
             text-align: center;
             padding: 40px;
@@ -377,6 +406,15 @@
 
         <section class="content-card">
             <h2 id="gen">Speaker Controllability</h2>
+            <div class="experiment-note">
+                <div class="note-tag">Description</div>
+                <p>
+                    This experiment demonstrates the model's ability to <b>decouple speaker identity from linguistic content</b>. 
+                    In the samples below, we show how our <i>Time-Decayed Conditioning</i> maintains stable speaker traits even when 
+                    we manually override the speaker labels (e.g., forcing a dialogue to be spoken by a single person or swapping roles). 
+                    Our model (Ours) exhibits significantly better consistency compared to the baseline.
+                </p>
+            </div>
             <div class="table-responsive">
                 <table class="table">
                     <thead>
