@@ -13,159 +13,214 @@
         /* ---------- 页面整体 ---------- */
         body {
             font-family: 'Roboto', sans-serif;
-            background-color: #f4f7f9;
+            background-color: #f0f4f8;
             margin: 0;
             padding: 0;
-            color: #2d3436;
+            color: #1e293b;
             line-height: 1.6;
         }
 
         .main-wrapper {
-            max-width: 1500px; /* 增加宽度以容纳5个对比列 */
+            max-width: 1600px; /* 进一步放宽以适应多列 */
             margin: 0 auto;
             padding: 40px 20px;
         }
 
-        /* ---------- 标题区 ---------- */
+        /* ---------- 标题区 (Header) ---------- */
         header {
             text-align: center;
-            padding: 60px 20px;
-            background: #1e293b; 
+            padding: 70px 30px;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
             color: white;
-            border-radius: 20px;
-            margin-bottom: 40px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border-radius: 24px;
+            margin-bottom: 50px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* 装饰性光晕 */
+        header::after {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -10%;
+            width: 50%;
+            height: 200%;
+            background: rgba(59, 130, 246, 0.05);
+            transform: rotate(30deg);
         }
 
         h1 {
-            font-size: 2.2rem;
+            font-size: 2.6rem;
             font-weight: 700;
-            margin-bottom: 15px;
-            letter-spacing: -0.5px;
+            margin-bottom: 20px;
+            letter-spacing: -0.02em;
+            line-height: 1.2;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* 重新设计的 Research Demo Page 标签 */
+        .demo-badge {
+            display: inline-block;
+            background: rgba(59, 130, 246, 0.2);
+            border: 1px solid rgba(59, 130, 246, 0.4);
+            color: #60a5fa;
+            padding: 6px 18px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            position: relative;
+            z-index: 1;
         }
 
         /* ---------- 卡片容器 ---------- */
         .content-card {
             background: #ffffff;
-            border: none;
-            border-radius: 16px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
-            padding: 30px;
+            border: 1px solid #e2e8f0;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.03);
+            padding: 40px;
             margin-bottom: 40px;
         }
 
         h2 {
             font-weight: 700;
-            margin-bottom: 25px;
+            margin-bottom: 30px;
             color: #0f172a;
             border-left: 6px solid #3b82f6;
-            padding-left: 15px;
-            font-size: 1.6rem;
+            padding-left: 20px;
+            font-size: 1.8rem;
         }
 
         h3 {
             font-weight: 700;
-            font-size: 1.3rem;
-            color: #1e293b;
-            margin-bottom: 20px;
+            font-size: 1.4rem;
+            color: #334155;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+        }
+
+        h3::before {
+            content: "◆";
+            color: #3b82f6;
+            margin-right: 10px;
+            font-size: 1rem;
         }
 
         /* ---------- Abstract ---------- */
         .abstract-section {
             background-color: #f8fafc;
-            padding: 25px 30px;
-            border-radius: 12px;
-            border: 1px solid #e2e8f0;
+            padding: 30px;
+            border-radius: 16px;
+            border-left: 4px solid #cbd5e1;
         }
 
         .abstract-section p {
-            font-size: 1.05rem;
+            font-size: 1.1rem;
             text-align: justify;
             color: #475569;
+            margin: 0;
         }
 
         /* ---------- 表格样式 ---------- */
         .table-responsive {
             border-radius: 12px;
-            overflow-x: auto;
+            border: 1px solid #f1f5f9;
         }
 
         .table {
             margin-bottom: 0;
             vertical-align: middle;
-            width: 100%;
         }
 
-        .table thead {
-            background-color: #f1f5f9;
-        }
-
-        .table th {
+        .table thead th {
+            background-color: #f8fafc;
             font-weight: 600;
-            text-transform: none;
             font-size: 0.85rem;
-            padding: 12px;
+            padding: 15px;
             color: #64748b;
             text-align: center;
-            white-space: nowrap;
+            border-bottom: 2px solid #e2e8f0;
         }
 
-        .table td {
-            padding: 12px;
+        .table tbody td {
+            padding: 20px 10px;
             border-bottom: 1px solid #f1f5f9;
             text-align: center;
         }
 
-        /* ---------- 文本单元格 ---------- */
+        /* ---------- 对话文本 ---------- */
         .dialogue-text-cell {
-            min-width: 380px;
-            font-size: 0.9rem;
+            min-width: 400px;
+            font-size: 0.95rem;
             text-align: left !important;
-            background-color: #fcfcfc;
+            background-color: #ffffff;
+            line-height: 1.8;
         }
 
         .speaker-line {
             display: block;
-            margin-bottom: 6px;
-            padding: 2px 0;
+            margin-bottom: 10px;
+            padding: 5px 12px;
+            border-radius: 8px;
+            background: #f1f5f9;
         }
 
         .speaker-label {
-            display: inline-block;
             font-weight: 700;
-            margin-right: 5px;
-            color: #3b82f6;
+            margin-right: 8px;
+            color: #2563eb; /* S1 默认蓝 */
+        }
+        
+        /* 给 S2 换个颜色区分 */
+        .speaker-line:nth-child(even) .speaker-label {
+            color: #059669; /* S2 绿色 */
         }
 
         /* ---------- 音频播放器 ---------- */
         audio {
-            height: 30px;
-            width: 130px;
-            border-radius: 4px;
-            display: block;
-            margin: 0 auto;
+            height: 35px;
+            width: 140px;
+            border-radius: 8px;
+            transition: transform 0.2s;
+        }
+        
+        audio:hover {
+            transform: scale(1.05);
         }
 
         /* ---------- 模型图 ---------- */
         .model-img-container {
             text-align: center;
-            padding: 20px;
-            background: #f8fafc;
-            border-radius: 12px;
+            padding: 30px;
+            background: #ffffff;
+            border: 1px dashed #cbd5e1;
+            border-radius: 16px;
         }
 
         .model-img-container img {
-            max-width: 70%;
+            max-width: 80%;
             height: auto;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            border-radius: 12px;
         }
 
         .description-text {
-            font-size: 0.95rem;
+            font-size: 1rem;
             color: #64748b;
-            margin-top: 15px;
-            font-style: italic;
+            margin-top: 20px;
+            font-weight: 400;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px;
+            color: #94a3b8;
+            font-size: 0.9rem;
         }
     </style>
 </head>
@@ -174,8 +229,8 @@
 
     <div class="main-wrapper">
         <header>
+            <div class="demo-badge">Research Demo Page</div>
             <h1>Disentangled Speaker Flow with Time-Decayed Conditioning for Dialogue Text-to-Speech</h1>
-            <p class="lead">Research Demo Page</p>
         </header>
 
         <section class="content-card">
@@ -203,7 +258,7 @@
             <div class="model-img-container">
                 <img src="model.png" alt="Model Overview">
                 <p class="description-text">
-                    The overall architecture of the proposed framework. The left part illustrates the training stage with conditional flow matching, while the right part shows the inference process using an ODE solver.
+                    <strong>Architecture:</strong> The training stage (left) with conditional flow matching and the inference process (right) using an ODE solver.
                 </p>
             </div>
         </section>
@@ -211,7 +266,7 @@
         <section class="content-card">
             <h2 id="cn">Dialogue Generation (Chinese)</h2>
             <div class="table-responsive">
-                <table class="table table-hover">
+                <table class="table">
                     <thead>
                         <tr>
                             <th>Prompt S1</th>
@@ -265,7 +320,7 @@
         <section class="content-card">
             <h2 id="en">Dialogue Generation (English)</h2>
             <div class="table-responsive">
-                <table class="table table-hover">
+                <table class="table">
                     <thead>
                         <tr>
                             <th>Prompt S1</th>
@@ -320,7 +375,7 @@
         <section class="content-card">
             <h2 id="gen">Speaker Controllability</h2>
             <div class="table-responsive">
-                <table class="table table-hover">
+                <table class="table">
                     <thead>
                         <tr>
                             <th>Prompt S1</th>
@@ -360,8 +415,8 @@
             </div>
         </section>
 
-        <footer style="text-align: center; padding: 20px; color: #94a3b8; font-size: 0.8rem;">
-            &copy; 2026 TTS Research Demo.
+        <footer>
+            &copy; 2026 TTS Research Team &bull; Disentangled Speaker Flow Project
         </footer>
     </div>
 
