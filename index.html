@@ -21,7 +21,7 @@
         }
 
         .main-wrapper {
-            max-width: 1300px;
+            max-width: 1500px; /* 增加宽度以容纳5个对比列 */
             margin: 0 auto;
             padding: 40px 20px;
         }
@@ -30,8 +30,7 @@
         header {
             text-align: center;
             padding: 60px 20px;
-            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d); /* 渐变点缀 */
-            background: #1e293b; /* 优雅的深色背景 */
+            background: #1e293b; 
             color: white;
             border-radius: 20px;
             margin-bottom: 40px;
@@ -39,7 +38,7 @@
         }
 
         h1 {
-            font-size: 2.5rem;
+            font-size: 2.2rem;
             font-weight: 700;
             margin-bottom: 15px;
             letter-spacing: -0.5px;
@@ -51,23 +50,22 @@
             border: none;
             border-radius: 16px;
             box-shadow: 0 4px 20px rgba(0,0,0,0.05);
-            padding: 40px;
+            padding: 30px;
             margin-bottom: 40px;
-            transition: transform 0.3s ease;
         }
 
         h2 {
             font-weight: 700;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
             color: #0f172a;
             border-left: 6px solid #3b82f6;
             padding-left: 15px;
-            font-size: 1.75rem;
+            font-size: 1.6rem;
         }
 
         h3 {
             font-weight: 700;
-            font-size: 1.4rem;
+            font-size: 1.3rem;
             color: #1e293b;
             margin-bottom: 20px;
         }
@@ -89,12 +87,13 @@
         /* ---------- 表格样式 ---------- */
         .table-responsive {
             border-radius: 12px;
-            overflow: hidden;
+            overflow-x: auto;
         }
 
         .table {
             margin-bottom: 0;
             vertical-align: middle;
+            width: 100%;
         }
 
         .table thead {
@@ -103,89 +102,70 @@
 
         .table th {
             font-weight: 600;
-            text-transform: uppercase;
+            text-transform: none;
             font-size: 0.85rem;
-            letter-spacing: 0.5px;
-            padding: 15px;
+            padding: 12px;
             color: #64748b;
-            border: none;
+            text-align: center;
+            white-space: nowrap;
         }
 
         .table td {
-            padding: 16px;
+            padding: 12px;
             border-bottom: 1px solid #f1f5f9;
+            text-align: center;
         }
 
         /* ---------- 文本单元格 ---------- */
         .dialogue-text-cell {
-            min-width: 350px;
-            font-size: 0.95rem;
+            min-width: 380px;
+            font-size: 0.9rem;
+            text-align: left !important;
+            background-color: #fcfcfc;
         }
 
         .speaker-line {
             display: block;
-            margin-bottom: 8px;
-            padding: 4px 8px;
-            border-radius: 4px;
+            margin-bottom: 6px;
+            padding: 2px 0;
         }
 
         .speaker-label {
             display: inline-block;
             font-weight: 700;
-            margin-right: 8px;
-            font-family: monospace;
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-size: 0.85rem;
+            margin-right: 5px;
+            color: #3b82f6;
         }
 
-        /* 区分说话人颜色 */
-        .speaker-label:contains('[S1]'), .speaker-label { color: #2563eb; background: #dbeafe; }
-        /* 注：CSS不能直接判断文本内容，这里用颜色区分增强视觉 */
-
-        /* ---------- 音频播放器小巧化 ---------- */
+        /* ---------- 音频播放器 ---------- */
         audio {
-            height: 35px;
-            width: 140px;
-            border-radius: 20px;
-            filter: sepia(20%) saturate(70%) grayscale(1); /* 弱化默认控件的突兀感 */
-            opacity: 0.8;
-            transition: opacity 0.2s;
-        }
-        
-        audio:hover {
-            opacity: 1;
+            height: 30px;
+            width: 130px;
+            border-radius: 4px;
+            display: block;
+            margin: 0 auto;
         }
 
-        /* ---------- 图片处理 ---------- */
+        /* ---------- 模型图 ---------- */
         .model-img-container {
             text-align: center;
             padding: 20px;
             background: #f8fafc;
             border-radius: 12px;
-            margin-bottom: 20px;
         }
 
         .model-img-container img {
-            max-width: 80%;
+            max-width: 70%;
             height: auto;
             border-radius: 8px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.08);
         }
 
         .description-text {
-            font-size: 1rem;
+            font-size: 0.95rem;
             color: #64748b;
-            max-width: 800px;
-            margin: 20px auto 0;
+            margin-top: 15px;
             font-style: italic;
-        }
-
-        /* 响应式调整 */
-        @media (max-width: 768px) {
-            h1 { font-size: 1.8rem; }
-            .content-card { padding: 20px; }
-            audio { width: 100px; }
         }
     </style>
 </head>
@@ -194,8 +174,7 @@
 
     <div class="main-wrapper">
         <header>
-            <h1>Disentangled Speaker Flow with Time-Decayed Conditioning for Dialogue Text-to-Speech</h1>
-            <p class="lead">Research Demo Page</p>
+            <h1>Disentangled Speaker Flow with Time-Decayed Conditioning for Dialogue Text-to-Speech (Demo)</h1>
         </header>
 
         <section class="content-card">
@@ -221,7 +200,7 @@
         <section class="content-card">
             <h2 id="model">Model Overview</h2>
             <div class="model-img-container">
-                <img src="model.png" alt="Model Overview Architecture">
+                <img src="model.png" alt="Model Overview">
                 <p class="description-text">
                     The overall architecture of the proposed framework. The left part illustrates the training stage with conditional flow matching, while the right part shows the inference process using an ODE solver.
                 </p>
@@ -238,10 +217,10 @@
                             <th>Prompt S2</th>
                             <th>Dialogue Text</th>
                             <th>Ours</th>
-                            <th>ZipVoice</th>
-                            <th>FireRed2</th>
-                            <th>MOSS-0.7</th>
-                            <th>Vibe-1.5B</th>
+                            <th>ZipVoice-Dialog</th>
+                            <th>FireRedTTS2</th>
+                            <th>MOSS-TTSDv0.7</th>
+                            <th>VibeVoice-1.5B</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -292,10 +271,10 @@
                             <th>Prompt S2</th>
                             <th>Dialogue Text</th>
                             <th>Ours</th>
-                            <th>ZipVoice</th>
-                            <th>FireRed2</th>
-                            <th>MOSS-0.7</th>
-                            <th>Vibe-1.5B</th>
+                            <th>ZipVoice-Dialog</th>
+                            <th>FireRedTTS2</th>
+                            <th>MOSS-TTSDv0.7</th>
+                            <th>VibeVoice-1.5B</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -380,8 +359,8 @@
             </div>
         </section>
 
-        <footer style="text-align: center; padding: 20px; color: #94a3b8; font-size: 0.9rem;">
-            &copy; 2026 Disentangled Speaker Flow Research. All Rights Reserved.
+        <footer style="text-align: center; padding: 20px; color: #94a3b8; font-size: 0.8rem;">
+            &copy; 2026 TTS Research Demo.
         </footer>
     </div>
 
