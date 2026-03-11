@@ -2,55 +2,114 @@
 <html>
 
 <head>
-
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>Demo Page</title>
+<title>Disentangled Speaker Flow with Time-Decayed Conditioning for Dialogue Text-to-Speech (Demo)</title>
 
 <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700" rel="stylesheet">
 <link href="css/bootstrap.min.css" rel="stylesheet">
 
 <style>
+    /* ---------- 页面整体 ---------- */
     body {
         font-family: 'Roboto', sans-serif;
-        background-color: #f8f9fa; /* 给背景一个浅灰色，突出白色的卡片 */
+        background: linear-gradient(to bottom, #f8f9fa, #e9ecef);
         margin: 0;
         padding: 0;
+        color: #333;
     }
 
-    /* 核心容器：宽度设为 95% 并居中 */
     .main-wrapper {
-        max-width: 95%; 
+        max-width: 95%;
         margin: 0 auto;
         padding: 20px;
     }
 
-    /* 覆盖 Bootstrap 的 container-fluid 默认间距 */
     .container-fluid {
         width: 100%;
         margin-right: auto;
         margin-left: auto;
+        padding: 40px 30px;
     }
 
-    audio {
-        width: 160px;
+    /* ---------- 卡片和阴影 ---------- */
+    .container-fluid.shadow-lg {
+        box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        border-radius: 15px;
+        background-color: #fff;
     }
 
-    .table td, .table th {
+    /* ---------- 标题 ---------- */
+    h1 {
+        font-size: 36px;
+        font-weight: 700;
         text-align: center;
+        margin-bottom: 10px;
+        color: #1a1a1a;
+        letter-spacing: 0.5px;
+    }
+
+    h2 {
+        text-align: center;
+        font-weight: 700;
+        margin-bottom: 30px;
+        color: #222;
+        border-bottom: 2px solid #ddd;
+        padding-bottom: 8px;
+    }
+
+    h3 {
+        text-align: center;
+        font-weight: 700;
+        font-size: 22px;
+        margin-bottom: 20px;
+    }
+
+    /* ---------- Abstract ---------- */
+    .abstract-section p {
+        font-size: 18px;
+        line-height: 1.9;
+        text-align: justify;
+        color: #333;
+        background-color: #fffbea;
+        padding: 15px 20px;
+        border-left: 5px solid #f4c430;
+        border-radius: 8px;
+    }
+
+    /* ---------- 表格 ---------- */
+    .table {
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        overflow: hidden;
+        background-color: #ffffff;
+    }
+
+    .table th {
+        background-color: #f1f3f5;
+        color: #333;
+        font-weight: 600;
+    }
+
+    .table td {
         vertical-align: middle;
-        white-space: nowrap; /* 防止音频按钮换行 */
+        color: #444;
+        font-size: 15px;
+    }
+
+    .table-hover tbody tr:hover {
+        background-color: #f9f9f9;
     }
 
     .dialogue-text-cell {
-    text-align: left !important;  /* 确保文字左对齐 */
-    min-width: 400px;
-    font-size: 16px;
-    line-height: 1.6;
-    white-space: normal !important;
-    padding-left: 80px; 
-}
+        text-align: left !important;
+        min-width: 400px;
+        font-size: 16px;
+        line-height: 1.6;
+        white-space: normal !important;
+        padding-left: 80px;
+    }
 
     .speaker-line {
         display: block;
@@ -66,53 +125,48 @@
         color: #555;
     }
 
-    /* 让图片在容器内居中并自适应 */
+    /* ---------- 音频 ---------- */
+    audio {
+        width: 140px;
+        outline: none;
+    }
+
+    /* ---------- 模型图 ---------- */
     .model-overview-imgs img {
-        max-width: 100%;
+        max-width: 70%;
         height: auto;
-        border-radius: 8px;
+        border-radius: 12px;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        transition: transform 0.3s ease;
     }
 
-    .abstract {
-    font-size: 18px;      /* 调整字体大小 */
-    line-height: 1.8;     /* 调整行高 */
-    color: #333;          /* 调整文字颜色 */
-}
-
-    /* 标题样式强化 */
-    h2 {
-        margin-bottom: 30px;
-        font-weight: 700;
+    .model-overview-imgs img:hover {
+        transform: scale(1.02);
     }
+
+    /* ---------- 描述文字 ---------- */
+    .description-text {
+        text-align: center;
+        font-size: 20px;
+        color: #333;
+        max-width: 80%;
+        margin: 0 auto;
+    }
+
 </style>
-
 </head>
 
 <body>
 
-<div class="containe">
+<div class="main-wrapper">
 
+<!-- ---------- TITLE ---------- -->
+<h1>Disentangled Speaker Flow with Time-Decayed Conditioning for Dialogue Text-to-Speech (Demo)</h1>
 
-<!-- TITLE -->
-
-<!-- 居中标题，直接用内联样式 -->
-<h1 style="font-size:36px; font-weight:700; text-align:center; margin-bottom:10px;">
-Disentangled Speaker Flow with Time-Decayed Conditioning for Dialogue Text-to-Speech (Demo)
-</h1>
-
-<p>
-
-
-<!-- 美化后的 Abstract 区域 -->
+<!-- ---------- Abstract ---------- -->
 <div class="abstract-section" style="max-width:900px; margin:0 auto;">
-
-    <!-- 居中加粗标题 -->
-    <h3 style="text-align:center; font-weight:700; font-size:22px; margin-bottom:20px;">
-        Abstract
-    </h3>
-
-    <!-- 正文 -->
-    <p style="font-size:18px; line-height:1.9; text-align:justify; color:#333;">
+    <h3>Abstract</h3>
+    <p>
         Dialogue synthesis requires modeling speaker transitions while maintaining high linguistic accuracy. 
         Existing text-to-speech frameworks often face a trade-off between computational efficiency and controllability, 
         resulting in either high implementation costs or limited flexibility in speaker transitions. 
@@ -126,279 +180,134 @@ Disentangled Speaker Flow with Time-Decayed Conditioning for Dialogue Text-to-Sp
         increasing model complexity. Experiments demonstrate improved controllability, competitive performance, 
         and strong generalization capability.
     </p>
-
 </div>
 
-<br>
-
-
-
-
-<!-- MODEL OVERVIEW -->
-<div class="container-fluid pt-5 mt-5 shadow-lg p-5 mb-5 bg-white rounded">
-
-  <h2 id="model" style="text-align:center;">Model Overview</h2>
+<!-- ---------- MODEL OVERVIEW ---------- -->
+<div class="container-fluid pt-5 mt-5 shadow-lg p-5 mb-5 rounded">
+  <h2 id="model">Model Overview</h2>
   <br>
-
-  <!-- 图像 -->
   <div style="display:flex; justify-content:center; margin-bottom:15px;">
-    <img src="model.png" style="max-width:80%; height:auto; border-radius:10px;" alt="Overview">
+    <img src="model.png" style="max-width:60%; height:auto; border-radius:10px;" alt="Overview">
   </div>
-
-  <!-- 描述文字 -->
-  <p style="text-align:center; font-size:30px; color:#333; max-width:80%; margin:0 auto;">
+  <p class="description-text">
     The overall architecture of the proposed framework. The left part illustrates the training stage with conditional flow matching, while the right part shows the inference process using an ODE solver.
   </p>
-
 </div>
 
-
-
-
-<!-- CHINESE -->
-
-<div class="container-fluid pt-5 mt-5 shadow-lg p-5 mb-5 bg-white rounded">
-
-<h2 id="cn" style="text-align:center;">Dialogue Generation (Chinese)</h2>
-
-<br>
-
-<div class="table-responsive">
-
-<table class="table table-hover">
-
-<thead>
-
-<tr>
-
-<th style="width:140px">Prompt S1</th>
-<th style="width:140px">Prompt S2</th>
-<th style="width:700px">Text</th>
-
-<th>Ours</th>
-<th>ZipVoice-Dialog</th>
-<th>FireRedTTS2</th>
-<th>MOSS-TTSDv0.7</th>
-<th>VibeVoice-1.5B</th>
-
-</tr>
-
-</thead>
-
-<tbody>
-
-
-<tr>
-
-<td><audio controls src="audios/prompt/s1.wav"></audio></td>
-<td><audio controls src="audios/prompt/s2.wav"></audio></td>
-
-<td class="dialogue-text-cell">
-
-<span class="speaker-line"><span class="speaker-label">[S1]</span>你好</span>
-<span class="speaker-line"><span class="speaker-label">[S2]</span>最近怎么样</span>
-<span class="speaker-line"><span class="speaker-label">[S1]</span>挺好的</span>
-<span class="speaker-line"><span class="speaker-label">[S1]</span>你好</span>
-<span class="speaker-line"><span class="speaker-label">[S2]</span>最近怎么样</span>
-<span class="speaker-line"><span class="speaker-label">[S1]</span>挺好的</span>
-
-</td>
-
-<td><audio controls src="audios/ours/cn1.wav"></audio></td>
-<td><audio controls src="audios/modelA/cn1.wav"></audio></td>
-<td><audio controls src="audios/modelB/cn1.wav"></audio></td>
-<td><audio controls src="audios/modelC/cn1.wav"></audio></td>
-<td><audio controls src="audios/modelD/cn1.wav"></audio></td>
-
-</tr>
-
-
-<tr>
-
-<td><audio controls src="audios/prompt/s1_2.wav"></audio></td>
-<td><audio controls src="audios/prompt/s2_2.wav"></audio></td>
-
-<td class="dialogue-text-cell">
-
-<span class="speaker-line"><span class="speaker-label">[S1]</span>今天忙吗</span>
-<span class="speaker-line"><span class="speaker-label">[S2]</span>还可以</span>
-<span class="speaker-line"><span class="speaker-label">[S1]</span>晚上一起吃饭吧</span>
-
-</td>
-
-<td><audio controls src="audios/ours/cn2.wav"></audio></td>
-<td><audio controls src="audios/modelA/cn2.wav"></audio></td>
-<td><audio controls src="audios/modelB/cn2.wav"></audio></td>
-<td><audio controls src="audios/modelC/cn2.wav"></audio></td>
-<td><audio controls src="audios/modelD/cn2.wav"></audio></td>
-
-</tr>
-
-
-</tbody>
-
-</table>
-
+<!-- ---------- CHINESE DIALOGUE ---------- -->
+<div class="container-fluid pt-5 mt-5 shadow-lg p-5 mb-5 rounded">
+  <h2 id="cn">Dialogue Generation (Chinese)</h2>
+  <br>
+  <div class="table-responsive">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>Prompt S1</th>
+          <th>Prompt S2</th>
+          <th>Text</th>
+          <th>Ours</th>
+          <th>ZipVoice-Dialog</th>
+          <th>FireRedTTS2</th>
+          <th>MOSS-TTSDv0.7</th>
+          <th>VibeVoice-1.5B</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><audio controls src="audios/prompt/s1.wav"></audio></td>
+          <td><audio controls src="audios/prompt/s2.wav"></audio></td>
+          <td class="dialogue-text-cell">
+            <span class="speaker-line"><span class="speaker-label">[S1]</span>你好</span>
+            <span class="speaker-line"><span class="speaker-label">[S2]</span>最近怎么样</span>
+            <span class="speaker-line"><span class="speaker-label">[S1]</span>挺好的</span>
+            <span class="speaker-line"><span class="speaker-label">[S1]</span>你好</span>
+            <span class="speaker-line"><span class="speaker-label">[S2]</span>最近怎么样</span>
+            <span class="speaker-line"><span class="speaker-label">[S1]</span>挺好的</span>
+          </td>
+          <td><audio controls src="audios/ours/cn1.wav"></audio></td>
+          <td><audio controls src="audios/modelA/cn1.wav"></audio></td>
+          <td><audio controls src="audios/modelB/cn1.wav"></audio></td>
+          <td><audio controls src="audios/modelC/cn1.wav"></audio></td>
+          <td><audio controls src="audios/modelD/cn1.wav"></audio></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
 
+<!-- ---------- ENGLISH DIALOGUE ---------- -->
+<div class="container-fluid pt-5 mt-5 shadow-lg p-5 mb-5 rounded">
+  <h2 id="en">Dialogue Generation (English)</h2>
+  <br>
+  <div class="table-responsive">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>Prompt S1</th>
+          <th>Prompt S2</th>
+          <th>Text</th>
+          <th>Ours</th>
+          <th>ZipVoice-Dialog</th>
+          <th>FireRedTTS2</th>
+          <th>MOSS-TTSDv0.7</th>
+          <th>VibeVoice-1.5B</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><audio controls src="audios/prompt/en_s1.wav"></audio></td>
+          <td><audio controls src="audios/prompt/en_s2.wav"></audio></td>
+          <td class="dialogue-text-cell">
+            <span class="speaker-line"><span class="speaker-label">[S1]</span>Hello</span>
+            <span class="speaker-line"><span class="speaker-label">[S2]</span>How are you</span>
+            <span class="speaker-line"><span class="speaker-label">[S1]</span>I'm doing great today</span>
+          </td>
+          <td><audio controls src="audios/ours/en1.wav"></audio></td>
+          <td><audio controls src="audios/modelA/en1.wav"></audio></td>
+          <td><audio controls src="audios/modelB/en1.wav"></audio></td>
+          <td><audio controls src="audios/modelC/en1.wav"></audio></td>
+          <td><audio controls src="audios/modelD/en1.wav"></audio></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
 
-
-
-<!-- ENGLISH DIALOGUE -->
-
-<div class="container-fluid pt-5 mt-5 shadow-lg p-5 mb-5 bg-white rounded">
-
-<h2 id="en" style="text-align:center;">Dialogue Generation (English)</h2>
-
-<br>
-
-<div class="table-responsive">
-
-<table class="table table-hover">
-
-<thead>
-
-<tr>
-
-<th style="width:140px">Prompt S1</th>
-<th style="width:140px">Prompt S2</th>
-<th style="width:700px">Text</th>
-
-<th>Ours</th>
-<th>ZipVoice-Dialog</th>
-<th>FireRedTTS2</th>
-<th>MOSS-TTSDv0.7</th>
-<th>VibeVoice-1.5B</th>
-
-</tr>
-
-</thead>
-
-<tbody>
-
-
-<tr>
-
-<td><audio controls src="audios/prompt/en_s1.wav"></audio></td>
-<td><audio controls src="audios/prompt/en_s2.wav"></audio></td>
-
-<td class="dialogue-text-cell">
-
-<span class="speaker-line"><span class="speaker-label">[S1]</span>Hello</span>
-<span class="speaker-line"><span class="speaker-label">[S2]</span>How are you</span>
-<span class="speaker-line"><span class="speaker-label">[S1]</span>I'm doing great today</span>
-
-</td>
-
-<td><audio controls src="audios/ours/en1.wav"></audio></td>
-<td><audio controls src="audios/modelA/en1.wav"></audio></td>
-<td><audio controls src="audios/modelB/en1.wav"></audio></td>
-<td><audio controls src="audios/modelC/en1.wav"></audio></td>
-<td><audio controls src="audios/modelD/en1.wav"></audio></td>
-
-</tr>
-
-
-<tr>
-
-<td><audio controls src="audios/prompt/en_s1_2.wav"></audio></td>
-<td><audio controls src="audios/prompt/en_s2_2.wav"></audio></td>
-
-<td class="dialogue-text-cell">
-
-<span class="speaker-line"><span class="speaker-label">[S1]</span>What are you doing today</span>
-<span class="speaker-line"><span class="speaker-label">[S2]</span>I'm working from home</span>
-<span class="speaker-line"><span class="speaker-label">[S1]</span>That sounds great</span>
-
-</td>
-
-<td><audio controls src="audios/ours/en2.wav"></audio></td>
-<td><audio controls src="audios/modelA/en2.wav"></audio></td>
-<td><audio controls src="audios/modelB/en2.wav"></audio></td>
-<td><audio controls src="audios/modelC/en2.wav"></audio></td>
-<td><audio controls src="audios/modelD/en2.wav"></audio></td>
-
-</tr>
-
-
-</tbody>
-
-</table>
-
+<!-- ---------- SPEAKER CONTROL ---------- -->
+<div class="container-fluid pt-5 mt-5 shadow-lg p-5 mb-5 rounded">
+  <h2 id="gen">Speaker Controllability</h2>
+  <br>
+  <div class="table-responsive" style="display:flex; justify-content:center;">
+    <table class="table table-hover" style="max-width:1200px;">
+      <thead>
+        <tr>
+          <th>Prompt S1</th>
+          <th>Prompt S2</th>
+          <th>Text</th>
+          <th>Ours</th>
+          <th>ZipVoice-Dialog</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><audio controls src="audios/prompt/s1.wav"></audio></td>
+          <td><audio controls src="audios/prompt/s2.wav"></audio></td>
+          <td>This is an example sentence for English speech generation.</td>
+          <td><audio controls src="audios/ours/mono1.wav"></audio></td>
+          <td><audio controls src="audios/baseline/mono1.wav"></audio></td>
+        </tr>
+        <tr>
+          <td><audio controls src="audios/prompt/s1.wav"></audio></td>
+          <td><audio controls src="audios/prompt/s2.wav"></audio></td>
+          <td>Speech synthesis systems should generate natural sounding speech.</td>
+          <td><audio controls src="audios/ours/mono2.wav"></audio></td>
+          <td><audio controls src="audios/baseline/mono2.wav"></audio></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
 
 </div>
-
-
-
-<!-- ENGLISH GENERATION -->
-
-<div class="container-fluid pt-5 mt-5 shadow-lg p-5 mb-5 bg-white rounded">
-
-<h2 id="gen" style="text-align:center;">Generation (English)</h2>
-
-<br>
-
-<div class="table-responsive" style="display:flex; justify-content:center;">
-
-<table class="table table-hover" style="max-width:1200px;">
-
-<thead>
-
-<tr>
-
-<th style="width:140px">Prompt S1</th>
-<th style="width:140px">Prompt S2</th>
-<th style="width:700px">Text</th>
-
-<th>Ours</th>
-<th>ZipVoice-Dialog</th>
-
-</tr>
-
-</thead>
-
-<tbody>
-
-
-<tr>
-
-<td><audio controls src="audios/prompt/s1.wav"></audio></td>
-<td><audio controls src="audios/prompt/s2.wav"></audio></td>
-
-<td>This is an example sentence for English speech generation.</td>
-
-<td><audio controls src="audios/ours/mono1.wav"></audio></td>
-<td><audio controls src="audios/baseline/mono1.wav"></audio></td>
-
-</tr>
-
-
-<tr>
-
-<td><audio controls src="audios/prompt/s1.wav"></audio></td>
-<td><audio controls src="audios/prompt/s2.wav"></audio></td>
-
-<td>Speech synthesis systems should generate natural sounding speech.</td>
-
-<td><audio controls src="audios/ours/mono2.wav"></audio></td>
-<td><audio controls src="audios/baseline/mono2.wav"></audio></td>
-
-</tr>
-
-
-</tbody>
-
-</table>
-
-</div>
-
-</div>
-
-
-</div>
-
 </body>
-
 </html>
