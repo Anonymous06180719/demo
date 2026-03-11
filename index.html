@@ -406,15 +406,14 @@
 
         <section class="content-card">
             <h2 id="gen">Speaker Controllability</h2>
-            <div class="experiment-note">
-                <div class="note-tag">Description</div>
-                <p>
-                    This experiment demonstrates the model's ability to <b>decouple speaker identity from linguistic content</b>. 
-                    In the samples below, we show how our <i>Time-Decayed Conditioning</i> maintains stable speaker traits even when 
-                    we manually override the speaker labels (e.g., forcing a dialogue to be spoken by a single person or swapping roles). 
-                    Our model (Ours) exhibits significantly better consistency compared to the baseline.
-                </p>
-            </div>
+           <div class="experiment-note">
+    <div class="note-tag">Core Advantage</div>
+    <p>
+        The baseline model (ZipVoice-Dialog) tends to rely on the <b>fixed temporal order</b> of the spliced prompts, often failing to follow explicit speaker labels when the turn-taking pattern changes. 
+        In contrast, our model demonstrates true <b>Label-Driven Controllability</b>. By disentangling the speaker-turn condition, our model can accurately switch speakers based on the assigned labels (e.g., [S1] or [S2]) regardless of the original prompt sequence. 
+        This proves that our framework has successfully learned to model speaker identity through labels rather than simply relying on turn-based heuristics.
+    </p>
+</div>
             <div class="table-responsive">
                 <table class="table">
                     <thead>
