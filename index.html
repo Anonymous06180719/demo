@@ -213,6 +213,7 @@
         </tr>
       </thead>
       <tbody>
+        <!-- 小实验 1 -->
         <tr>
           <td><audio controls src="demo/zh1/p1.wav"></audio></td>
           <td><audio controls src="demo/zh1/p2.wav"></audio></td>
@@ -230,25 +231,8 @@
           <td><audio controls src="demo/zh1/moss1.wav"></audio></td>
           <td><audio controls src="demo/zh1/vibevoice1.wav"></audio></td>
         </tr>
-      </tbody>
-    </table>
-  </div>
-    
-    <div class="table-responsive">
-    <table class="table table-hover">
-      <thead>
-        <tr>
-          <th>Prompt S1</th>
-          <th>Prompt S2</th>
-          <th>Text</th>
-          <th>Ours</th>
-          <th>ZipVoice-Dialog</th>
-          <th>FireRedTTS2</th>
-          <th>MOSS-TTSDv0.7</th>
-          <th>VibeVoice-1.5B</th>
-        </tr>
-      </thead>
-      <tbody>
+
+        <!-- 小实验 2 -->
         <tr>
           <td><audio controls src="demo/zh2/p1.wav"></audio></td>
           <td><audio controls src="demo/zh2/p2.wav"></audio></td>
@@ -288,6 +272,7 @@
         </tr>
       </thead>
       <tbody>
+        <!-- 小实验 1 -->
         <tr>
           <td><audio controls src="demo/en1/en11.wav"></audio></td>
           <td><audio controls src="demo/en2/en12.wav"></audio></td>
@@ -304,24 +289,8 @@
           <td><audio controls src="demo/en1/moss1.wav"></audio></td>
           <td><audio controls src="demo/en1/vibevoice1.wav"></audio></td>
         </tr>
-      </tbody>
-    </table>
-  </div>
-    <div class="table-responsive">
-    <table class="table table-hover">
-      <thead>
-        <tr>
-          <th>Prompt S1</th>
-          <th>Prompt S2</th>
-          <th>Text</th>
-          <th>Ours</th>
-          <th>ZipVoice-Dialog</th>
-          <th>FireRedTTS2</th>
-          <th>MOSS-TTSDv0.7</th>
-          <th>VibeVoice-1.5B</th>
-        </tr>
-      </thead>
-      <tbody>
+
+        <!-- 小实验 2 -->
         <tr>
           <td><audio controls src="demo/en2/en21.wav"></audio></td>
           <td><audio controls src="demo/en2/en22.wav"></audio></td>
@@ -342,6 +311,8 @@
       </tbody>
     </table>
   </div>
+</div>
+
 <!-- ---------- SPEAKER CONTROL ---------- -->
 <div class="container-fluid pt-5 mt-5 shadow-lg p-5 mb-5 rounded">
   <h2 id="gen">Speaker Controllability</h2>
@@ -358,25 +329,26 @@
         </tr>
       </thead>
       <tbody>
+        <!-- 小实验 1 -->
         <tr>
           <td><audio controls src="demo/zh1/p1.wav"></audio></td>
           <td><audio controls src="demo/zh1/p2.wav"></audio></td>
-            <span class="speaker-line"><span class="speaker-label">[S2]</span>你好，今天过得怎么样？</span>
-            <span class="speaker-line"><span class="speaker-label">[S1]</span>还不错，刚完成了一些工作。你呢？</span>
-            <span class="speaker-line"><span class="speaker-label">[S2]</span>我也差不多，不过有点累了。你午饭吃了什么？</span>
-            <span class="speaker-line"><span class="speaker-label">[S1]</span>吃了个沙拉，挺清淡的。你呢？</span>
-            <span class="speaker-line"><span class="speaker-label">[S2]</span>我吃了汉堡，可能今天得加倍锻炼了哈。</span>
-            <span class="speaker-line"><span class="speaker-label">[S1]</span>看来你是得好好动起来了。</span>
+          <td class="dialogue-text-cell">
+            <span class="speaker-line"><span class="speaker-label">[S1]</span>你好，今天过得怎么样？</span>
+            <span class="speaker-line"><span class="speaker-label">[S2]</span>还不错，刚完成了一些工作。你呢？</span>
+          </td>
           <td><audio controls src="demo/ours1.wav"></audio></td>
           <td><audio controls src="demo/base1.wav"></audio></td>
         </tr>
+
+        <!-- 小实验 2 -->
         <tr>
           <td><audio controls src="demo/zh1/p1.wav"></audio></td>
           <td><audio controls src="demo/zh1/p2.wav"></audio></td>
-            <span class="speaker-line"><span class="speaker-label">[S1]</span>你好，今天过得怎么样？</span>
-            <span class="speaker-line"><span class="speaker-label">[S1]</span>还不错，刚完成了一些工作。你呢？</span>
+          <td class="dialogue-text-cell">
             <span class="speaker-line"><span class="speaker-label">[S1]</span>我也差不多，不过有点累了。你午饭吃了什么？</span>
-            <span class="speaker-line"><span class="speaker-label">[S1]</span>吃了个沙拉，挺清淡的。你呢？</span>
+            <span class="speaker-line"><span class="speaker-label">[S2]</span>吃了个沙拉，挺清淡的。你呢？</span>
+          </td>
           <td><audio controls src="demo/ours2.wav"></audio></td>
           <td><audio controls src="demo/base2.wav"></audio></td>
         </tr>
