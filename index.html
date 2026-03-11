@@ -1,366 +1,389 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Disentangled Speaker Flow with Time-Decayed Conditioning for Dialogue Text-to-Speech (Demo)</title>
 
-<title>Disentangled Speaker Flow with Time-Decayed Conditioning for Dialogue Text-to-Speech (Demo)</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
-<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700" rel="stylesheet">
-<link href="css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* ---------- 页面整体 ---------- */
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f4f7f9;
+            margin: 0;
+            padding: 0;
+            color: #2d3436;
+            line-height: 1.6;
+        }
 
-<style>
-    /* ---------- 页面整体 ---------- */
-    body {
-        font-family: 'Roboto', sans-serif;
-        background: linear-gradient(to bottom, #f8f9fa, #e9ecef);
-        margin: 0;
-        padding: 0;
-        color: #333;
-    }
+        .main-wrapper {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
 
-    .main-wrapper {
-        max-width: 95%;
-        margin: 0 auto;
-        padding: 20px;
-    }
+        /* ---------- 标题区 ---------- */
+        header {
+            text-align: center;
+            padding: 60px 20px;
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d); /* 渐变点缀 */
+            background: #1e293b; /* 优雅的深色背景 */
+            color: white;
+            border-radius: 20px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
 
-    .container-fluid {
-        width: 100%;
-        margin-right: auto;
-        margin-left: auto;
-        padding: 40px 30px;
-    }
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            letter-spacing: -0.5px;
+        }
 
-    /* ---------- 卡片和阴影 ---------- */
-    .container-fluid.shadow-lg {
-        box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-        border-radius: 15px;
-        background-color: #fff;
-    }
+        /* ---------- 卡片容器 ---------- */
+        .content-card {
+            background: #ffffff;
+            border: none;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            padding: 40px;
+            margin-bottom: 40px;
+            transition: transform 0.3s ease;
+        }
 
-    /* ---------- 标题 ---------- */
-    h1 {
-        font-size: 36px;
-        font-weight: 700;
-        text-align: center;
-        margin-bottom: 10px;
-        color: #1a1a1a;
-        letter-spacing: 0.5px;
-    }
+        h2 {
+            font-weight: 700;
+            margin-bottom: 30px;
+            color: #0f172a;
+            border-left: 6px solid #3b82f6;
+            padding-left: 15px;
+            font-size: 1.75rem;
+        }
 
-    h2 {
-        text-align: center;
-        font-weight: 700;
-        margin-bottom: 30px;
-        color: #222;
-        border-bottom: 2px solid #ddd;
-        padding-bottom: 8px;
-    }
+        h3 {
+            font-weight: 700;
+            font-size: 1.4rem;
+            color: #1e293b;
+            margin-bottom: 20px;
+        }
 
-    h3 {
-        text-align: center;
-        font-weight: 700;
-        font-size: 22px;
-        margin-bottom: 20px;
-    }
+        /* ---------- Abstract ---------- */
+        .abstract-section {
+            background-color: #f8fafc;
+            padding: 25px 30px;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+        }
 
-    /* ---------- Abstract ---------- */
-    .abstract-section p {
-        font-size: 18px;
-        line-height: 1.9;
-        text-align: justify;
-        color: #333;
-        background-color: #fffbea;
-        padding: 15px 20px;
-        border-left: 5px solid #f4c430;
-        border-radius: 8px;
-    }
+        .abstract-section p {
+            font-size: 1.05rem;
+            text-align: justify;
+            color: #475569;
+        }
 
-    /* ---------- 表格 ---------- */
-    .table {
-        border: 1px solid #ddd;
-        border-radius: 10px;
-        overflow: hidden;
-        background-color: #ffffff;
-    }
+        /* ---------- 表格样式 ---------- */
+        .table-responsive {
+            border-radius: 12px;
+            overflow: hidden;
+        }
 
-    .table th {
-        background-color: #f1f3f5;
-        color: #333;
-        font-weight: 600;
-    }
+        .table {
+            margin-bottom: 0;
+            vertical-align: middle;
+        }
 
-    .table td {
-        vertical-align: middle;
-        color: #444;
-        font-size: 15px;
-    }
+        .table thead {
+            background-color: #f1f5f9;
+        }
 
-    .table-hover tbody tr:hover {
-        background-color: #f9f9f9;
-    }
+        .table th {
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 0.5px;
+            padding: 15px;
+            color: #64748b;
+            border: none;
+        }
 
-    .dialogue-text-cell {
-        text-align: left !important;
-        min-width: 400px;
-        font-size: 16px;
-        line-height: 1.6;
-        white-space: normal !important;
-        padding-left: 80px;
-    }
+        .table td {
+            padding: 16px;
+            border-bottom: 1px solid #f1f5f9;
+        }
 
-    .speaker-line {
-        display: block;
-        text-indent: -2.5em;
-        padding-left: 2.5em;
-        margin-bottom: 6px;
-    }
+        /* ---------- 文本单元格 ---------- */
+        .dialogue-text-cell {
+            min-width: 350px;
+            font-size: 0.95rem;
+        }
 
-    .speaker-label {
-        display: inline-block;
-        width: 2.5em;
-        font-weight: bold;
-        color: #555;
-    }
+        .speaker-line {
+            display: block;
+            margin-bottom: 8px;
+            padding: 4px 8px;
+            border-radius: 4px;
+        }
 
-    /* ---------- 音频 ---------- */
-    audio {
-        width: 140px;
-        outline: none;
-    }
+        .speaker-label {
+            display: inline-block;
+            font-weight: 700;
+            margin-right: 8px;
+            font-family: monospace;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+        }
 
-    /* ---------- 模型图 ---------- */
-    .model-overview-imgs img {
-        max-width: 70%;
-        height: auto;
-        border-radius: 12px;
-        box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-        transition: transform 0.3s ease;
-    }
+        /* 区分说话人颜色 */
+        .speaker-label:contains('[S1]'), .speaker-label { color: #2563eb; background: #dbeafe; }
+        /* 注：CSS不能直接判断文本内容，这里用颜色区分增强视觉 */
 
-    .model-overview-imgs img:hover {
-        transform: scale(1.02);
-    }
+        /* ---------- 音频播放器小巧化 ---------- */
+        audio {
+            height: 35px;
+            width: 140px;
+            border-radius: 20px;
+            filter: sepia(20%) saturate(70%) grayscale(1); /* 弱化默认控件的突兀感 */
+            opacity: 0.8;
+            transition: opacity 0.2s;
+        }
+        
+        audio:hover {
+            opacity: 1;
+        }
 
-    /* ---------- 描述文字 ---------- */
-    .description-text {
-        text-align: center;
-        font-size: 20px;
-        color: #333;
-        max-width: 80%;
-        margin: 0 auto;
-    }
+        /* ---------- 图片处理 ---------- */
+        .model-img-container {
+            text-align: center;
+            padding: 20px;
+            background: #f8fafc;
+            border-radius: 12px;
+            margin-bottom: 20px;
+        }
 
-</style>
+        .model-img-container img {
+            max-width: 80%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+
+        .description-text {
+            font-size: 1rem;
+            color: #64748b;
+            max-width: 800px;
+            margin: 20px auto 0;
+            font-style: italic;
+        }
+
+        /* 响应式调整 */
+        @media (max-width: 768px) {
+            h1 { font-size: 1.8rem; }
+            .content-card { padding: 20px; }
+            audio { width: 100px; }
+        }
+    </style>
 </head>
 
 <body>
 
-<div class="main-wrapper">
+    <div class="main-wrapper">
+        <header>
+            <h1>Disentangled Speaker Flow with Time-Decayed Conditioning for Dialogue Text-to-Speech</h1>
+            <p class="lead">Research Demo Page</p>
+        </header>
 
-<!-- ---------- TITLE ---------- -->
-<h1>Disentangled Speaker Flow with Time-Decayed Conditioning for Dialogue Text-to-Speech (Demo)</h1>
+        <section class="content-card">
+            <h3>Abstract</h3>
+            <div class="abstract-section">
+                <p>
+                    Dialogue synthesis requires modeling speaker transitions while maintaining high linguistic accuracy. 
+                    Existing text-to-speech frameworks often face a trade-off between computational efficiency and controllability, 
+                    resulting in either high implementation costs or limited flexibility in speaker transitions. 
+                    <br><br>
+                    In this work, building upon <em>ZipVoice-Dialog</em>, we propose a speaker modeling strategy that disentangles 
+                    the speaker-turn condition from linguistic representations in the flow matching process. We also introduce 
+                    a time-dependent decay mechanism that progressively reduces the influence of the speaker-turn condition along 
+                    the trajectory, allowing early steps to preserve speaker traits while later steps emphasize linguistic refinement. 
+                    <br><br>
+                    This dynamic modulation mitigates speaker-content interference and stabilizes cross-turn transitions without 
+                    increasing model complexity. Experiments demonstrate improved controllability, competitive performance, 
+                    and strong generalization capability.
+                </p>
+            </div>
+        </section>
 
-<!-- ---------- Abstract ---------- -->
-<div class="abstract-section" style="max-width:900px; margin:0 auto;">
-    <h3>Abstract</h3>
-    <p>
-        Dialogue synthesis requires modeling speaker transitions while maintaining high linguistic accuracy. 
-        Existing text-to-speech frameworks often face a trade-off between computational efficiency and controllability, 
-        resulting in either high implementation costs or limited flexibility in speaker transitions. 
+        <section class="content-card">
+            <h2 id="model">Model Overview</h2>
+            <div class="model-img-container">
+                <img src="model.png" alt="Model Overview Architecture">
+                <p class="description-text">
+                    The overall architecture of the proposed framework. The left part illustrates the training stage with conditional flow matching, while the right part shows the inference process using an ODE solver.
+                </p>
+            </div>
+        </section>
 
-        In this work, building upon <em>ZipVoice-Dialog</em>, we propose a speaker modeling strategy that disentangles 
-        the speaker-turn condition from linguistic representations in the flow matching process. We also introduce 
-        a time-dependent decay mechanism that progressively reduces the influence of the speaker-turn condition along 
-        the trajectory, allowing early steps to preserve speaker traits while later steps emphasize linguistic refinement. 
+        <section class="content-card">
+            <h2 id="cn">Dialogue Generation (Chinese)</h2>
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Prompt S1</th>
+                            <th>Prompt S2</th>
+                            <th>Dialogue Text</th>
+                            <th>Ours</th>
+                            <th>ZipVoice</th>
+                            <th>FireRed2</th>
+                            <th>MOSS-0.7</th>
+                            <th>Vibe-1.5B</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><audio controls src="demo/zh1/p1.wav"></audio></td>
+                            <td><audio controls src="demo/zh1/p2.wav"></audio></td>
+                            <td class="dialogue-text-cell">
+                                <span class="speaker-line"><span class="speaker-label">[S1]</span>你好，今天过得怎么样？</span>
+                                <span class="speaker-line"><span class="speaker-label">[S2]</span>还不错，刚完成了一些工作。你呢？</span>
+                                <span class="speaker-line"><span class="speaker-label">[S1]</span>我也差不多，不过有点累了。你午饭吃了什么？</span>
+                                <span class="speaker-line"><span class="speaker-label">[S2]</span>吃了个沙拉，挺清淡的。你呢？</span>
+                                <span class="speaker-line"><span class="speaker-label">[S1]</span>我吃了汉堡，可能今天得加倍锻炼了哈。</span>
+                                <span class="speaker-line"><span class="speaker-label">[S2]</span>看来你是得好好动起来了。</span>
+                            </td>
+                            <td><audio controls src="demo/zh1/ours1.wav"></audio></td>
+                            <td><audio controls src="demo/zh1/base1.wav"></audio></td>
+                            <td><audio controls src="demo/zh1/firered1.wav"></audio></td>
+                            <td><audio controls src="demo/zh1/moss1.wav"></audio></td>
+                            <td><audio controls src="demo/zh1/vibevoice1.wav"></audio></td>
+                        </tr>
+                        <tr>
+                            <td><audio controls src="demo/zh2/p1.wav"></audio></td>
+                            <td><audio controls src="demo/zh2/p2.wav"></audio></td>
+                            <td class="dialogue-text-cell">
+                                <span class="speaker-line"><span class="speaker-label">[S1]</span>好骄傲呀。</span>
+                                <span class="speaker-line"><span class="speaker-label">[S2]</span>其实确实就是根据他们的那种曲调想填输入的词，那个感觉会有和他们有一点心灵相通的感觉。</span>
+                                <span class="speaker-line"><span class="speaker-label">[S1]</span>对尤其是你写那个词的话你，因为是你自己写的话你就会觉得嗯更加的有成就感，然后感觉跟他们离了更进一步有没？</span>
+                                <span class="speaker-line"><span class="speaker-label">[S2]</span>对对对就是有，会有这种感觉。</span>
+                            </td>
+                            <td><audio controls src="demo/zh2/ours.wav"></audio></td>
+                            <td><audio controls src="demo/zh2/base.wav"></audio></td>
+                            <td><audio controls src="demo/zh2/firered.wav"></audio></td>
+                            <td><audio controls src="demo/zh2/moss.wav"></audio></td>
+                            <td><audio controls src="demo/zh2/vibevoice.wav"></audio></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
 
-        This dynamic modulation mitigates speaker-content interference and stabilizes cross-turn transitions without 
-        increasing model complexity. Experiments demonstrate improved controllability, competitive performance, 
-        and strong generalization capability.
-    </p>
-</div>
+        <section class="content-card">
+            <h2 id="en">Dialogue Generation (English)</h2>
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Prompt S1</th>
+                            <th>Prompt S2</th>
+                            <th>Dialogue Text</th>
+                            <th>Ours</th>
+                            <th>ZipVoice</th>
+                            <th>FireRed2</th>
+                            <th>MOSS-0.7</th>
+                            <th>Vibe-1.5B</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><audio controls src="demo/en1/en11.wav"></audio></td>
+                            <td><audio controls src="demo/en1/en12.wav"></audio></td>
+                            <td class="dialogue-text-cell">
+                                <span class="speaker-line"><span class="speaker-label">[S1]</span>Hello girl.</span>
+                                <span class="speaker-line"><span class="speaker-label">[S2]</span>So what do you spend your money on?</span>
+                                <span class="speaker-line"><span class="speaker-label">[S1]</span>Uh,well, obviously food, clothing, and many things like that.</span>
+                                <span class="speaker-line"><span class="speaker-label">[S2]</span>You spend your- Don't your parents do that?</span>
+                                <span class="speaker-line"><span class="speaker-label">[S1]</span>Well.</span>  
+                            </td>
+                            <td><audio controls src="demo/en1/ours1.wav"></audio></td>
+                            <td><audio controls src="demo/en1/base1.wav"></audio></td>
+                            <td><audio controls src="demo/en1/firered1.wav"></audio></td>
+                            <td><audio controls src="demo/en1/moss1.wav"></audio></td>
+                            <td><audio controls src="demo/en1/vibevoice1.wav"></audio></td>
+                        </tr>
+                        <tr>
+                            <td><audio controls src="demo/en2/en21.wav"></audio></td>
+                            <td><audio controls src="demo/en2/en22.wav"></audio></td>
+                            <td class="dialogue-text-cell">
+                                <span class="speaker-line"><span class="speaker-label">[S1]</span> What kind of, um, what's your favorite kind of food, I guess?</span>
+                                <span class="speaker-line"><span class="speaker-label">[S2]</span>Favorite kind of food? Uh, maybe like barbecue, like steak or something, probably.</span>
+                                <span class="speaker-line"><span class="speaker-label">[S1]</span>Have you spent, do you spend money?</span>
+                                <span class="speaker-line"><span class="speaker-label">[S2]</span>Anything meat.</span>
+                                <span class="speaker-line"><span class="speaker-label">[S1]</span>Meat.</span>
+                                <span class="speaker-line"><span class="speaker-label">[S2]</span>Yeah, there we go. I spend my own money on boba sometimes.</span>
+                            </td>
+                            <td><audio controls src="demo/en2/ours2.wav"></audio></td>
+                            <td><audio controls src="demo/en2/base2.wav"></audio></td>
+                            <td><audio controls src="demo/en2/firered2.wav"></audio></td>
+                            <td><audio controls src="demo/en2/moss2.wav"></audio></td>
+                            <td><audio controls src="demo/en2/vibevoice2.wav"></audio></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
 
-<!-- ---------- MODEL OVERVIEW ---------- -->
-<div class="container-fluid pt-5 mt-5 shadow-lg p-5 mb-5 rounded">
-  <h2 id="model">Model Overview</h2>
-  <br>
-  <div style="display:flex; justify-content:center; margin-bottom:15px;">
-    <img src="model.png" style="max-width:60%; height:auto; border-radius:10px;" alt="Overview">
-  </div>
-  <p class="description-text">
-    The overall architecture of the proposed framework. The left part illustrates the training stage with conditional flow matching, while the right part shows the inference process using an ODE solver.
-  </p>
-</div>
+        <section class="content-card">
+            <h2 id="gen">Speaker Controllability</h2>
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Prompt S1</th>
+                            <th>Prompt S2</th>
+                            <th>Dialogue Text</th>
+                            <th>Ours</th>
+                            <th>ZipVoice-Dialog</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><audio controls src="demo/zh1/p1.wav"></audio></td>
+                            <td><audio controls src="demo/zh1/p2.wav"></audio></td>
+                            <td class="dialogue-text-cell">
+                                <span class="speaker-line"><span class="speaker-label">[S2]</span>你好，今天过得怎么样？</span>
+                                <span class="speaker-line"><span class="speaker-label">[S1]</span>还不错，刚完成了一些工作。你呢？</span>
+                                <span class="speaker-line"><span class="speaker-label">[S2]</span>我也差不多，不过有点累了。你午饭吃了什么？</span>
+                                <span class="speaker-line"><span class="speaker-label">[S1]</span>吃了个沙拉，挺清淡的。你呢？</span>
+                            </td>
+                            <td><audio controls src="demo/ours1.wav"></audio></td>
+                            <td><audio controls src="demo/base1.wav"></audio></td>
+                        </tr>
+                        <tr>
+                            <td><audio controls src="demo/zh1/p1.wav"></audio></td>
+                            <td><audio controls src="demo/zh1/p2.wav"></audio></td>
+                            <td class="dialogue-text-cell">
+                                <span class="speaker-line"><span class="speaker-label">[S1]</span>你好，今天过得怎么样？</span>
+                                <span class="speaker-line"><span class="speaker-label">[S1]</span>还不错，刚完成了一些工作。你呢？</span>
+                                <span class="speaker-line"><span class="speaker-label">[S1]</span>我也差不多，不过有点累了。你午饭吃了什么？</span>
+                                <span class="speaker-line"><span class="speaker-label">[S1]</span>吃了个沙拉，挺清淡的。你呢？</span>
+                            </td>
+                            <td><audio controls src="demo/ours2.wav"></audio></td>
+                            <td><audio controls src="demo/base2.wav"></audio></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
 
-<!-- ---------- CHINESE DIALOGUE ---------- -->
-<div class="container-fluid pt-5 mt-5 shadow-lg p-5 mb-5 rounded">
-  <h2 id="cn">Dialogue Generation (Chinese)</h2>
-  <br>
-  <div class="table-responsive">
-    <table class="table table-hover">
-      <thead>
-        <tr>
-          <th>Prompt S1</th>
-          <th>Prompt S2</th>
-          <th>Text</th>
-          <th>Ours</th>
-          <th>ZipVoice-Dialog</th>
-          <th>FireRedTTS2</th>
-          <th>MOSS-TTSDv0.7</th>
-          <th>VibeVoice-1.5B</th>
-        </tr>
-      </thead>
-      <tbody>
-        <!-- 小实验 1 -->
-        <tr>
-          <td><audio controls src="demo/zh1/p1.wav"></audio></td>
-          <td><audio controls src="demo/zh1/p2.wav"></audio></td>
-          <td class="dialogue-text-cell">
-            <span class="speaker-line"><span class="speaker-label">[S1]</span>你好，今天过得怎么样？</span>
-            <span class="speaker-line"><span class="speaker-label">[S2]</span>还不错，刚完成了一些工作。你呢？</span>
-            <span class="speaker-line"><span class="speaker-label">[S1]</span>我也差不多，不过有点累了。你午饭吃了什么？</span>
-            <span class="speaker-line"><span class="speaker-label">[S2]</span>吃了个沙拉，挺清淡的。你呢？</span>
-            <span class="speaker-line"><span class="speaker-label">[S1]</span>我吃了汉堡，可能今天得加倍锻炼了哈。</span>
-            <span class="speaker-line"><span class="speaker-label">[S2]</span>看来你是得好好动起来了。</span>
-          </td>
-          <td><audio controls src="demo/zh1/ours1.wav"></audio></td>
-          <td><audio controls src="demo/zh1/base1.wav"></audio></td>
-          <td><audio controls src="demo/zh1/firered1.wav"></audio></td>
-          <td><audio controls src="demo/zh1/moss1.wav"></audio></td>
-          <td><audio controls src="demo/zh1/vibevoice1.wav"></audio></td>
-        </tr>
+        <footer style="text-align: center; padding: 20px; color: #94a3b8; font-size: 0.9rem;">
+            &copy; 2026 Disentangled Speaker Flow Research. All Rights Reserved.
+        </footer>
+    </div>
 
-        <!-- 小实验 2 -->
-        <tr>
-          <td><audio controls src="demo/zh2/p1.wav"></audio></td>
-          <td><audio controls src="demo/zh2/p2.wav"></audio></td>
-          <td class="dialogue-text-cell">
-            <span class="speaker-line"><span class="speaker-label">[S1]</span>好骄傲呀。</span>
-            <span class="speaker-line"><span class="speaker-label">[S2]</span>其实确实就是根据他们的那种曲调想填输入的词，那个感觉会有和他们有一点心灵相通的感觉。</span>
-            <span class="speaker-line"><span class="speaker-label">[S1]</span>对尤其是你写那个词的话你，因为是你自己写的话你就会觉得嗯更加的有成就感，然后感觉跟他们离了更进一步有没？</span>
-            <span class="speaker-line"><span class="speaker-label">[S2]</span>对对对就是有，会有这种感觉。</span>
-          </td>
-          <td><audio controls src="demo/zh2/ours.wav"></audio></td>
-          <td><audio controls src="demo/zh2/base.wav"></audio></td>
-          <td><audio controls src="demo/zh2/firered.wav"></audio></td>
-          <td><audio controls src="demo/zh2/moss.wav"></audio></td>
-          <td><audio controls src="demo/zh2/vibevoice.wav"></audio></td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-</div>
-
-<!-- ---------- ENGLISH DIALOGUE ---------- -->
-<div class="container-fluid pt-5 mt-5 shadow-lg p-5 mb-5 rounded">
-  <h2 id="en">Dialogue Generation (English)</h2>
-  <br>
-  <div class="table-responsive">
-    <table class="table table-hover">
-      <thead>
-        <tr>
-          <th>Prompt S1</th>
-          <th>Prompt S2</th>
-          <th>Text</th>
-          <th>Ours</th>
-          <th>ZipVoice-Dialog</th>
-          <th>FireRedTTS2</th>
-          <th>MOSS-TTSDv0.7</th>
-          <th>VibeVoice-1.5B</th>
-        </tr>
-      </thead>
-      <tbody>
-        <!-- 小实验 1 -->
-        <tr>
-          <td><audio controls src="demo/en1/en11.wav"></audio></td>
-          <td><audio controls src="demo/en1/en12.wav"></audio></td>
-          <td class="dialogue-text-cell">
-            <span class="speaker-line"><span class="speaker-label">[S1]</span>Hello girl.</span>
-            <span class="speaker-line"><span class="speaker-label">[S2]</span>So what do you spend your money on?</span>
-            <span class="speaker-line"><span class="speaker-label">[S1]</span>Uh,well, obviously food, clothing, and many things like that.</span>
-            <span class="speaker-line"><span class="speaker-label">[S2]</span>You spend your- Don't your parents do that?</span>
-            <span class="speaker-line"><span class="speaker-label">[S1]</span>Well.</span>  
-          </td>
-          <td><audio controls src="demo/en1/ours1.wav"></audio></td>
-          <td><audio controls src="demo/en1/base1.wav"></audio></td>
-          <td><audio controls src="demo/en1/firered1.wav"></audio></td>
-          <td><audio controls src="demo/en1/moss1.wav"></audio></td>
-          <td><audio controls src="demo/en1/vibevoice1.wav"></audio></td>
-        </tr>
-
-        <!-- 小实验 2 -->
-        <tr>
-          <td><audio controls src="demo/en2/en21.wav"></audio></td>
-          <td><audio controls src="demo/en2/en22.wav"></audio></td>
-          <td class="dialogue-text-cell">
-            <span class="speaker-line"><span class="speaker-label">[S1]</span> What kind of, um, what's your favorite kind of food, I guess?</span>
-            <span class="speaker-line"><span class="speaker-label">[S2]</span>Favorite kind of food? Uh, maybe like barbecue, like steak or something, probably.</span>
-            <span class="speaker-line"><span class="speaker-label">[S1]</span>Have you spent, do you spend money?</span>
-            <span class="speaker-line"><span class="speaker-label">[S2]</span>Anything meat.</span>
-            <span class="speaker-line"><span class="speaker-label">[S1]</span>Meat.</span>
-            <span class="speaker-line"><span class="speaker-label">[S2]</span>Yeah, there we go. I spend my own money on boba sometimes.</span>
-          </td>
-          <td><audio controls src="demo/en2/ours2.wav"></audio></td>
-          <td><audio controls src="demo/en2/base2.wav"></audio></td>
-          <td><audio controls src="demo/en2/firered2.wav"></audio></td>
-          <td><audio controls src="demo/en2/moss2.wav"></audio></td>
-          <td><audio controls src="demo/en2/vibevoice2.wav"></audio></td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-</div>
-
-<!-- ---------- SPEAKER CONTROL ---------- -->
-<div class="container-fluid pt-5 mt-5 shadow-lg p-5 mb-5 rounded">
-  <h2 id="gen">Speaker Controllability</h2>
-  <br>
-  <div class="table-responsive" style="display:flex; justify-content:center;">
-    <table class="table table-hover" style="max-width:1200px;">
-      <thead>
-        <tr>
-          <th>Prompt S1</th>
-          <th>Prompt S2</th>
-          <th>Text</th>
-          <th>Ours</th>
-          <th>ZipVoice-Dialog</th>
-        </tr>
-      </thead>
-      <tbody>
-        <!-- 小实验 1 -->
-        <tr>
-          <td><audio controls src="demo/zh1/p1.wav"></audio></td>
-          <td><audio controls src="demo/zh1/p2.wav"></audio></td>
-          <td class="dialogue-text-cell">
-            <span class="speaker-line"><span class="speaker-label">[S2]</span>你好，今天过得怎么样？</span>
-            <span class="speaker-line"><span class="speaker-label">[S1]</span>还不错，刚完成了一些工作。你呢？</span>
-            <span class="speaker-line"><span class="speaker-label">[S2]</span>我也差不多，不过有点累了。你午饭吃了什么？</span>
-            <span class="speaker-line"><span class="speaker-label">[S1]</span>吃了个沙拉，挺清淡的。你呢？</span>
-          </td>
-          <td><audio controls src="demo/ours1.wav"></audio></td>
-          <td><audio controls src="demo/base1.wav"></audio></td>
-        </tr>
-
-        <!-- 小实验 2 -->
-        <tr>
-          <td><audio controls src="demo/zh1/p1.wav"></audio></td>
-          <td><audio controls src="demo/zh1/p2.wav"></audio></td>
-          <td class="dialogue-text-cell">
-            <span class="speaker-line"><span class="speaker-label">[S1]</span>你好，今天过得怎么样？</span>
-            <span class="speaker-line"><span class="speaker-label">[S1]</span>还不错，刚完成了一些工作。你呢？</span>
-            <span class="speaker-line"><span class="speaker-label">[S1]</span>我也差不多，不过有点累了。你午饭吃了什么？</span>
-            <span class="speaker-line"><span class="speaker-label">[S1]</span>吃了个沙拉，挺清淡的。你呢？</span>
-          </td>
-          <td><audio controls src="demo/ours2.wav"></audio></td>
-          <td><audio controls src="demo/base2.wav"></audio></td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-</div>
-
-</div>
 </body>
 </html>
