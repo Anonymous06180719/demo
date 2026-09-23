@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Disentangled Speaker Flow with Time-Decayed Conditioning for Dialogue Text-to-Speech (Demo)</title>
+    <title>Role-Controlled Dialogue Speech Synthesis with Time-Conditioned Attention Refresh (Demo)</title>
 
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -269,18 +269,12 @@
             <h3>Abstract</h3>
             <div class="abstract-section">
                 <p>
-                    Dialogue synthesis requires modeling speaker transitions while maintaining high linguistic accuracy. 
-                    Existing text-to-speech frameworks often face a trade-off between computational efficiency and controllability, 
-                    resulting in either high implementation costs or limited flexibility in speaker transitions. 
+                    In two-speaker dialogue synthesis, the role tags [S1] and [S2] bind utterances to the first and second reference voices, respectively.
+                    In our compact, non-autoregressive ZipVoice-Dialog baseline, a turn-based role channel agrees with these tags on S1-first alternating sequences but can conflict with them when speakers change order or take consecutive turns. We introduce explicit role conditioning (RC), which follows the most recent speaker tag, projects role and text features separately, and attenuates the direct role signal over flow time. To adapt reused attention to evolving features, we introduce time-conditioned attention refresh (TAR).
+                    TAR predicts a low-rank score correction from within-block feature changes and flow time, refreshing only the second self-attention in each block.
                     <br><br>
-                    In this work, building upon <em>ZipVoice-Dialog</em>, we propose a speaker modeling strategy that disentangles 
-                    the speaker-turn condition from linguistic representations in the flow matching process. We also introduce 
-                    a time-dependent decay mechanism that progressively reduces the influence of the speaker-turn condition along 
-                    the trajectory, allowing early steps to preserve speaker traits while later steps emphasize linguistic refinement. 
-                    <br><br>
-                    This dynamic modulation mitigates speaker-content interference and stabilizes cross-turn transitions without 
-                    increasing model complexity. Experiments demonstrate improved controllability, competitive performance, 
-                    and strong generalization capability.
+                    Comparisons on OpenDialog indicate that RC improves fixed-reference role binding under changed turn orders.
+                    Adding TAR to RC lowers word error rate and increases speaker-similarity scores on the original English test set. The combined model requires less generation time than full attention recomputation, with a slightly higher word error rate.
                 </p>
             </div>
         </section>
